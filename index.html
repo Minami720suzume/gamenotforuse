@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圣诞问答挑战 🎄</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f1f1f1;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+            padding: 50px 0;
+        }
+        h1 {
+            font-size: 3rem;
+            color: #f44336;
+        }
+        .question {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+        .answer-buttons {
+            margin-top: 20px;
+        }
+        .answer-buttons button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        .answer-buttons button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 30px;
+            display: none;
+        }
+        .emoji {
+            font-size: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎄 圣诞问答挑战 🎄</h1>
+
+    <div class="question" id="question1">
+        <p>问题 1️⃣: 谁在圣诞节为孩子们送礼物，并穿着红色的衣服，通常由驯鹿拉着雪橇？</p>
+        <div class="answer-buttons">
+            <button onclick="checkAnswer(1, 'A')">A) 圣诞老人</button>
+            <button onclick="checkAnswer(1, 'B')">B) 圣尼古拉斯</button>
+            <button onclick="checkAnswer(1, 'C')">C) 圣诞天使</button>
+        </div>
+    </div>
+
+    <div class="question" id="question2" style="display: none;">
+        <p>问题 2️⃣: 《平安夜》这首歌的作曲者是谁？</p>
+        <div class="answer-buttons">
+            <button onclick="checkAnswer(2, 'A')">A) 弗朗茨·格鲁伯</button>
+            <button onclick="checkAnswer(2, 'B')">B) 约翰·列侬</button>
+            <button onclick="checkAnswer(2, 'C')">C) 乔治·赫伯特</button>
+        </div>
+    </div>
+
+    <div class="question" id="question3" style="display: none;">
+        <p>问题 3️⃣: 圣诞节最初是为了纪念谁的诞生？</p>
+        <div class="answer-buttons">
+            <button onclick="checkAnswer(3, 'A')">A) 耶稣基督</button>
+            <button onclick="checkAnswer(3, 'B')">B) 圣保罗</button>
+            <button onclick="checkAnswer(3, 'C')">C) 约瑟夫</button>
+        </div>
+    </div>
+
+    <div class="question" id="question4" style="display: none;">
+        <p>问题 4️⃣: 圣诞树的装饰最早源自于哪个国家？</p>
+        <div class="answer-buttons">
+            <button onclick="checkAnswer(4, 'A')">A) 德国</button>
+            <button onclick="checkAnswer(4, 'B')">B) 英国</button>
+            <button onclick="checkAnswer(4, 'C')">C) 美国</button>
+        </div>
+    </div>
+
+    <div class="question" id="question5" style="display: none;">
+        <p>问题 5️⃣: 圣诞节通常是哪一天庆祝的？</p>
+        <div class="answer-buttons">
+            <button onclick="checkAnswer(5, 'A')">A) 12月25日</button>
+            <button onclick="checkAnswer(5, 'B')">B) 12月24日</button>
+            <button onclick="checkAnswer(5, 'C')">C) 12月31日</button>
+        </div>
+    </div>
+
+    <div class="result" id="result">
+        <p class="emoji">🎉</p>
+        <p id="resultMessage"></p>
+        <button onclick="restartGame()">再试一次</button>
+    </div>
+</div>
+
+<script>
+    let correctAnswers = 0;
+    
+    const correctAnswerMap = {
+        1: 'A',
+        2: 'A',
+        3: 'A',
+        4: 'A',
+        5: 'A'
+    };
+
+    function checkAnswer(questionNumber, answer) {
+        if (answer === correctAnswerMap[questionNumber]) {
+            correctAnswers++;
+        }
+        showNextQuestion(questionNumber);
+    }
+
+    function showNextQuestion(questionNumber) {
+        document.getElementById(`question${questionNumber}`).style.display = 'none';
+        if (questionNumber < 5) {
+            document.getElementById(`question${questionNumber + 1}`).style.display = 'block';
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        let resultMessage = `你答对了 ${correctAnswers} 个问题！`;
+        if (correctAnswers === 5) {
+            resultMessage += " 🏅 完美！恭喜你！";
+        } else if (correctAnswers === 0) {
+            resultMessage += " 😔 一道题都没答对，快来再试一次吧！";
+        } else {
+            resultMessage += " 🎄 继续努力，下次一定更好！";
+        }
+        document.getElementById("resultMessage").innerText = resultMessage;
+        document.getElementById("result").style.display = 'block';
+    }
+
+    function restartGame() {
+        correctAnswers = 0;
+        document.getElementById("result").style.display = 'none';
+        document.getElementById("question1").style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
